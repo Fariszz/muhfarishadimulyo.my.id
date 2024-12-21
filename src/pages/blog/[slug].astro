@@ -1,6 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import MainLayout from "~/layouts/MainLayout.astro";
+import BlogLayout from "~/layouts/BlogLayout.astro";
 
 const { post } = Astro.props;
 const { Content } = await post.render();
@@ -18,7 +18,7 @@ type Props = {
 };
 ---
 
-<MainLayout
+<BlogLayout
 	seo={{
 		title: post.data.title,
 		description: post.data.description,
