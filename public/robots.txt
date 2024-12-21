@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://muhfarishadimulyo.my.id/sitemap-index.xml
