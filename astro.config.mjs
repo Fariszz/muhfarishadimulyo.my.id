@@ -19,8 +19,8 @@ export default defineConfig({
 		mdx(),
 		sitemap(),
 		robotsTxt({
-			host: 'https://muhfarishadimulyo.my.id',
-			sitemap: 'https://muhfarishadimulyo.my.id/sitemap-index.xml',
+			host: 'muhfarishadimulyo.my.id',
+			sitemap: true,
 			policy: [
 				{
 					userAgent: "*",
