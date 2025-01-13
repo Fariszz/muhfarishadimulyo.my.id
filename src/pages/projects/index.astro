@@ -5,7 +5,17 @@ import MainLayout from "~/layouts/MainLayout.astro";
 const projects = await getCollection("projects");
 ---
 
-<MainLayout seo={{ title: "Projects" }}>
+<MainLayout seo={{ 
+	title: "Projects", 
+	description: "Projects by Muhammad Faris Hadi Mulyo", 
+	openGraph: {
+	basic: {
+		type: "website",
+		title: "Projects",
+		image: "",
+		url: "https://muhfarishadimulyo.my.id/projects",
+	},}
+ }}>
 	<div class="space-y-8">
 		<h1 class="text-4xl font-bold">Projects</h1>
 
