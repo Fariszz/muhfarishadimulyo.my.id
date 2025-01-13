@@ -11,6 +11,14 @@ const allTags = [...new Set(posts.flatMap((post: { data: { tags: any } }) => pos
 	seo={{
 		title: "Blog Posts",
 		description: "Blog posts by Muhammad Faris Hadi Mulyo",
+		openGraph: {
+			basic: {
+				type: "website",
+				title: "Blog Posts",
+				image: "",
+				url: "https://muhfarishadimulyo.my.id/blog",
+			},
+		},
 	}}
 >
 	<div class="space-y-8">
