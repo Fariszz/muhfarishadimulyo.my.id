@@ -22,15 +22,26 @@ type Props = {
 	seo={{
 		title: post.data.title,
 		description: post.data.description,
-		keywords: post.data.tags,
-		isPost: true,
+		openGraph: {
+			basic: {
+				type: "article",
+				title: post.data.title,
+				image: "",
+				url: `https://muhfarishadimulyo.my.id/blog/${post.slug}`,								
+			},
+			article: {
+				publishedTime: post.data.pubDate,				
+				authors: ["Muhammad Faris Hadi Mulyo"],
+				tags: post.data.tags,
+			},
+		},
 	}}
 >
 	<article class="prose prose-lg dark:prose-invert max-w-none">
 		<div class="mb-8">
 			<h1 class="text-4xl font-bold text-primary mb-4">{post.data.title}</h1>
 			<div class="flex gap-4 items-center text-gray-500 dark:text-gray-400 mb-6">
-				<time datetime={post.data.pubDate.toISOString()}>
+				<time datetime={post.data.pubDate}>
 					{new Date(post.data.pubDate).toLocaleDateString()}
 				</time>
 				<div class="flex gap-2">

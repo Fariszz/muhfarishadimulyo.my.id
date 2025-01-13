@@ -24,8 +24,15 @@ const workExperiencesSort = workExperiences.slice(0, 2);
 <MainLayout
 	seo={{
 		title: "Home",
-		description: "Muhammad Faris Hadi Mulyo's personal website",
-		keywords: ["Muhammad Faris Hadi Mulyo", "Faris Hadi Mulyo", "Muhammad Faris", "Faris Mulyo"],
+		description: "Muhammad Faris Hadi Mulyo's personal website",	
+		openGraph: {
+			basic: {
+				type: "website",
+				title: "Muhammad Faris Hadi Mulyo",
+				image: "",
+				url: "https://muhfarishadimulyo.my.id",
+			},
+		},
 	}}
 >
 	<section class="space-y-12">

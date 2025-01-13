@@ -20,7 +20,7 @@ export default defineConfig({
 		sitemap(),
 		robotsTxt({
 			host: 'muhfarishadimulyo.my.id',
-			sitemap: true,
+			sitemap: 'https://muhfarishadimulyo.my.id/sitemap-index.xml',
 			policy: [
 				{
 					userAgent: "*",

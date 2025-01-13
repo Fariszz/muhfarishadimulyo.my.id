@@ -1,8 +1,8 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
-import SEO, { type Props as SEOProps } from "~/components/SEO.astro";
-
+import { SEO, type SEOProps } from "astro-seo";
+import { Schema } from "astro-seo-schema"
 export interface Props {
 	seo: SEOProps;
 }
@@ -15,7 +15,18 @@ const { seo } = Astro.props;
 	<head>
 		<SEO {...seo} />
 		<ViewTransitions />
-		
+		<Schema item={{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			name: "Muhammad Faris Hadi Mulyo",
+			url: "https://muhfarishadimulyo.my.id",
+			logo: "https://muhfarishadimulyo.my.id/android-chrome-192x192.png",
+			sameAs: [
+				"https://github.com/Fariszz",
+				"https://twitter.com/Fariszz",
+				"https://www.linkedin.com/in/muhfarishadimulyo/",
+			],
+		}} />
 		<script>
 			function updateTheme() {
 				if (
