@@ -15,7 +15,7 @@ export const workExperiences: WorkExperience[] = [
 		technologies: ["Java", "Oracle", "MySQL", "Redis", "docker"],
 	},
 	{
-		company: "Chup Online Sdn Bhd",
+		company: "Private Company",
 		position: "Backend Developer",
 		type: "remote",
 		time: "freelance",
