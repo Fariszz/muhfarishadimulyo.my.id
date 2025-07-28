@@ -47,12 +47,12 @@ export function HomePage() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto btn-animate">
-                  <a href="/resume.pdf" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Resume
-                  </a>
-              </Button>
+              <a href="/resume.pdf" download>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto btn-animate">
+                      <Download className="mr-2 h-4 w-4" />
+                      Download Resume                  
+                </Button>
+              </a>
             </div>
 
             <div className="flex items-center justify-center space-x-6 pt-8 animate-slide-in-top" style={{ animationDelay: '1.2s' }}>
