@@ -48,8 +48,10 @@ export function HomePage() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" className="w-full sm:w-auto btn-animate">
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
+                  <a href="/resume.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Resume
+                  </a>
               </Button>
             </div>
 
