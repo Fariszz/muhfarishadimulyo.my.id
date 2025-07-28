@@ -7,7 +7,7 @@ export const projects: Project[] = [
     description:
       "Kendali is an office management application designed to facilitate various office processes virtually, helping digitize workflows that were previously done manually.",
     techStack: ["React", "TypeScript", "Laravel", "PostgreSQL", "PHP"],
-    imageUrl: "v/projects/kendali.png",
+    imageUrl: "/assets/projects/kendali.png",
     // githubUrl: "https://github.com/alexjohnson/ecommerce-platform",
     liveUrl: "https://play.google.com/store/apps/details?id=id.kendali.beta",
     featured: true,
@@ -46,8 +46,7 @@ export const projects: Project[] = [
     description:
       "DPR Revamp is a project that aims to completely overhaul the look and functionality of the sub-website of the House of Representatives (DPR) of the Republic of Indonesia",
     techStack: ["Laravel", "PHP", "MySQL", "Bootstrap"],
-    imageUrl:
-      "v/projects/dpr_revamp.png",
+    imageUrl: "/assets/projects/dpr_revamp.png",
     // githubUrl: "https://github.com/alexjohnson/task-manager",
     // liveUrl: "https://tasks.alexjohnson.dev",
     featured: false,
@@ -78,7 +77,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Laravel",
     ],
-    imageUrl: "v/projects/chup_clinic.png",
+    imageUrl: "/assets/projects/chup_clinic.png",
     // githubUrl: "https://github.com/alexjohnson/weather-dashboard",
     liveUrl: "https://chup.clinic/",
     featured: true,
@@ -115,7 +114,7 @@ export const projects: Project[] = [
   {
     id: "4",
     title: "Chup MyMental",
-    imageUrl: "v/projects/mymental.png",
+    imageUrl: "/assets/projects/mymental.png",
     description:
       "MyMental.online was developed to fill the gap in access to mental health services, especially among people who are not ready or able to consult professionals directly. With a digital-based approach, the platform offers self-assessment, progress tracking, and educational content that helps users build self-care routines. The long-term goal is to create a society that is more aware of mental health and able to manage stress and emotions in a healthy manner.",
     techStack: [
@@ -161,7 +160,7 @@ export const projects: Project[] = [
     description:
       "Askala BaseApp is an AI-powered learning platform built on the Internet Computer Protocol (ICP) using Motoko for the backend and React + Vite for the frontend. It delivers interactive Python learning modules, secure authentication, and progress tracking—fully decentralized and verifiable",
     techStack: ["React", "Motoko", "ICP"],
-    imageUrl: "v/projects/askala.png",
+    imageUrl: "/assets/projects/askala.png",
     githubUrl: "https://github.com/chainrooks/askala_baseapp",
     // liveUrl: "https://design-system.alexjohnson.dev",
     featured: true,
