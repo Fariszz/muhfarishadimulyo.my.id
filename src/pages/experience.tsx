@@ -139,22 +139,11 @@ export function ExperiencePage() {
                 Technologies and tools I've worked with throughout my career
               </p>
               
-              <div className="grid md:grid-cols-3 gap-6 mt-8">
-                <div className="space-y-3">
-                  <h3 className="font-semibold">Frontend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {['React', 'TypeScript', 'JavaScript', 'CSS', 'Tailwind CSS', 'Sass'].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
+              <div className="grid md:grid-cols-3 gap-6 mt-8">                
                 <div className="space-y-3">
                   <h3 className="font-semibold">Backend</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker'].map((skill) => (
+                    {['Java', 'Express', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Nest Js', 'Typescript', 'php', 'Laravel'].map((skill) => (
                       <Badge key={skill} variant="secondary" className="text-xs">
                         {skill}
                       </Badge>
@@ -165,7 +154,7 @@ export function ExperiencePage() {
                 <div className="space-y-3">
                   <h3 className="font-semibold">Tools & Cloud</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['AWS', 'Git', 'Jest', 'Cypress', 'Storybook', 'Figma'].map((skill) => (
+                    {['Git', 'Jest', 'JUnit', 'Nginx', 'Frankenphp'].map((skill) => (
                       <Badge key={skill} variant="secondary" className="text-xs">
                         {skill}
                       </Badge>
