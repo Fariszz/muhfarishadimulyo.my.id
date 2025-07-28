@@ -1,0 +1,99 @@
+---
+title: "Memahami Log4j2 Daily Rotation"
+excerpt: "Memahami Log4j2 Daily Rotation"
+date: "2024-12-19"
+category: "Development"
+tags: ["Java", "State Management", "Zustand"]
+readTime: 5
+published: true
+# heroImage: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=1200"
+---
+
+# <center>Memahami Log4j2 Daily Rotation</center>
+
+<p>Pada kesempatan kali ini saya ingin berbagi pengalaman terkait Log4j2 Daily Rotation. Pengetahuan ini saya peroleh saat mengerjakan tugas di kantor, dimana saya diminta untuk membuat konfigurasi untuk log daily rotation yang akan digunakan dalam aplikasi. Dalam artikel ini, saya akan menjelaskan tentang hal dasar tentang Log4j2 Daily Rotation dan bagaimana cara membuatnya.</p><br/>
+
+## <h2>❓ Mengapa Rotasi Log Penting?</h2>
+<p>Rotasli Log menjadi penting , karena aplikasi yang kita jalankan 24/7 dan mencatat semua aktivitas di dalamnya. Jika log tidak di rotasi secara rutin, maka dapat menyebabkan log yang besar dan tidak terorganisir.</p>
+
+Disinilah rotasi file log digunaka. Rotasi log memungkinkan anda untuk:
+
+1. Pemisahan file log berdasarkan interval waktu tertentu (contohnya harian atau jam), dapat menjaga ukuran file tetap terjaga.
+2. Mempermudah analisis log, karena file log yang lebih kecil dapat mempermudah pencarian dan analisis data.
+3. Sistem tidak terbebani oleh file log yang terlalu besar.
+
+## <h2>💻 Studi Kasus: Rotasi Log Haran dengani Log4j2</h2>
+<p>Kita akan menggunakan kode berikut untuk memahami konsep rotasi log harian dengan Log4j2</p>
+
+<h4>📝 Kode Java</h4>
+
+```java
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class App {
+    private static final Logger logger = LogManager.getLogger(App.class);
+
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            logger.info("📄 Ini adalah log informasi utk pengujian rotasi log.");
+            logger.error("⚠️ Ini adalah log error utk pengujian rotasi log.");
+            Thread.sleep(1000); // Tunggu ⏳ 1 detik sebelum log berikutnya
+        }
+    }
+}
+```
+
+<h4>⚙️ Konfigurasi Log4j2</h4>
+
+```java
+status = error
+name = TestConfig
+
+rootLogger.level = info
+rootLogger.appenderRefs = console, rolling
+rootLogger.appenderRef.console.ref = STDOUT
+rootLogger.appenderRef.rolling.ref = RollingFile
+
+# Appender Console (Output ke Terminal)
+appender.console.type = Console
+appender.console.name = STDOUT
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+# Rolling File Appender
+appender.rolling.type = RollingFile
+appender.rolling.name = RollingFile
+appender.rolling.fileName = logs/application.log
+appender.rolling.filePattern = logs/%d{yyyy-MM-dd-HH-mm-ss}.zip
+appender.rolling.layout.type = PatternLayout
+appender.rolling.layout.pattern = %d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n
+
+# Triggering Policy (Rotate every 10 seconds)
+appender.rolling.policies.type = Policies
+appender.rolling.policies.time.type = TimeBasedTriggeringPolicy
+appender.rolling.policies.time.interval = 10
+appender.rolling.policies.time.modulate = true
+
+# Rollover Strategy (Let Log4j handle compression automatically)
+appender.rolling.strategy.type = DefaultRolloverStrategy
+appender.rolling.strategy.max = 10
+```
+
+### 🔎 Penjelasan Konfigurasi
+
+<p> 1. **Appender Console:** </p>
+   - Mengatur output log ke console (terminal).
+   - Berfungsi untuk melakukan debugging saat proses pengembangan.
+
+<p>2. **Rolling File Appender:** </p>
+   - Menyimpan log ke file dengan pola 🖋️ penamaan berdasarkan 🕒 timestamp `(logs/%d{yyyy-MM-dd-HH-mm-ss}.zip)`.
+   
+<p>3. **TimeBasedTriggeringPolicy:** </p>
+   - Menentukan kapan log akan diputar (dalam kasus ini, setiap 10 detik).
+
+<p>4. **DefaultRolloverStrategy:** </p>
+   - Menangani pengelolaan file lama, termasuk kompresi otomatis.
+
+## Kesimpulan
+Dengan Log4j2, Kita bisa mengimplementasikan rotasi log yg fleksibel & efisien. Konfigurasi diatas menunjukkan bagaimana kita bisa menangani log secara harian atau bahkan lebih sering, tergantung kebutuhan aplikasi kita. Jangan lupa untuk terus memantau & mengoptimalkan pengelolaan log agar tetap efisien & terorganisir.

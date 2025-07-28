@@ -1,0 +1,157 @@
+---
+title: "Apasih perbedaan operator perbandingan == dan equals() pada Java?"
+excerpt: "Memahami perbedaan mendasar antara operator `==` dan metode `equals()` di Java."
+date: "2023-12-20"
+category: "Development"
+tags: ["Java"]
+readTime: 9
+published: true
+# heroImage: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=1200"
+---
+
+## Apa sih Perbedaan Operator Perbandingan `==` dan `equals()` pada Java?
+
+Halo teman-teman! Kali ini saya mau berbagi pengalaman yang mungkin pernah dialami oleh programmer Java pemula. Sering kali, mereka mencoba melakukan logika perbandingan pada variabel bertipe `String` menggunakan operator `==`. Misalnya seperti ini:
+
+
+```java
+    String a = new String("hello");
+    String b = new String("hello");
+    if (a == b) {
+        System.out.println("a dan b sama");
+    } else {
+        System.out.println("a dan b tidak sama");
+    }
+```
+
+Pada saat saya menjalankan kode tersebut, saya mendapatkan hasil seperti ini:
+
+```
+a dan b tidak sama
+```
+
+Kenapa bisa begitu? 🤔 Karena di Java, operator `==` hanya membandingkan alamat memori dari objek, bukan nilai objek itu sendiri. Jadi, jika kita membuat objek baru dengan `new String("hello")`, maka variabel `a` dan `b` memiliki alamat memori yang berbeda. Akibatnya, hasil perbandingan menggunakan `==` adalah `false`.
+
+### Menggunakan Method `equals()`
+
+Coba kita ubah kodenya menggunakan method `equals()` seperti ini:
+
+```java
+    String a = new String("hello");
+    String b = new String("hello");
+    if (a.equals(b)) {
+        System.out.println("a dan b sama");
+    } else {
+        System.out.println("a dan b tidak sama");
+    }
+```
+
+Pada saat saya menjalankan kode tersebut, saya mendapatkan hasil seperti ini:
+
+```
+a dan b sama
+```
+
+Dengan metode `equals()`, perbandingan dilakukan pada nilai dari objek itu sendiri, bukan alamat memorinya. Karena nilai dari `a` dan `b` sama-sama `hello`, maka hasil perbandingan adalah `true`.
+
+---
+### Contoh dengan Kombinasi object dengan Literal String
+Bagaimana kalau kita mencoba kombinasi berbeda, seperti ini:
+
+```java
+    String a = new String("hello");
+    String b = "hello";
+    if (a.equals(b)) {
+        System.out.println("a dan b sama");
+    } else {
+        System.out.println("a dan b tidak sama");
+    }
+```
+
+Pada saat saya menjalankan kode tersebut, saya mendapatkan hasil seperti ini:
+
+```
+a dan b sama
+```
+
+Kenapa hasilnya sama? Karena equals() tetap membandingkan nilai dari kedua objek, jadi hasilnya `true`.
+
+### Bagaimana equals() Bekerja?
+
+nah apasih yang sebenarnya dijalankan oleh method `equals()`? mari kita lihat
+
+```java
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        return (anObject instanceof String aString)
+                && (!COMPACT_STRINGS || this.coder == aString.coder)
+                && StringLatin1.equals(value, aString.value);
+    }
+```
+
+Pada saat kita menjalankan kode tersebut, kita dapat melihat bahwa method `equals()` melakukan beberapa perbandingan, seperti:
+
+1. `this == anObject`
+    - Melakukan pengecekan apakah `this` dan `anObject` adalah object yang sama
+    - Jika `this` dan `anObject` adalah object yang sama, maka `equals()` akan mengembalikan `true`
+2. `anObject instanceof String aString`
+    - Melakukan pengecekan apakah `anObject` adalah instance dari class `String`
+    - Jika `anObject`  bukan instance dari class `String`, maka `equals` akan mengembalikan `false`
+    - jika `anObject` adalah instance dari class `String`, maka akan dilanjutkan perbandingan selanjutnya 
+3. `!COMPACT_STRINGS || this.coder == aString.coder)`
+    - Mengecek apakah variabel `COMPACT_STRINGS` bernilai `false`.
+    - Jika `COMPACT_STRINGS` adalah `false`, maka kita akan melakukan pengecekan apakah `this.coder` dan `aString.coder` sama
+4. `StringLatin1.equals(value, aString.value)`
+    - Ini adalah perbandingan terakhir yang membandingkan nilai string yang ada dalam objek this dan aString menggunakan metode `StringLatin1.equals()`.
+
+---
+
+### Kasus == dengan Literal String
+
+```java
+    String a = "hello";
+    String b = "hello";
+    if (a == b) {
+        System.out.println("a dan b sama");
+    } else {
+        System.out.println("a dan b tidak sama");
+    }
+```
+
+Pada saat saya menjalankan kode tersebut, saya mendapatkan hasil seperti ini:
+
+```
+a dan b sama
+```
+
+Mengapa hal tersebut bisa terjadi? Padahal kedua variabel tersebut memiliki tipe data String, yang merupakan tipe data referensi. Untuk memahami hal ini, kita perlu mengenal dua hal penting di Java: <b>tipe data referensi</b> dan <b>String Pool</b>.
+
+### Penjelasan Tipe Data Primitif vs Referensi di Java
+Di Java, tipe data String merupakan <b>tipe data referensi</b> karena String adalah kelas (class) yang didefinisikan dalam Java. Meskipun sering dianggap seperti tipe data primitif, String sebenarnya adalah objek di belakang layar.
+
+Ketika membuat objek String menggunakan new String("test"), Anda menciptakan instance baru dari kelas String dengan alokasi memori terpisah. Variabel yang  dibuat hanya akan menyimpan referensi ke objek tersebut, bukan nilai langsung.
+
+Berikut adalah perbedaan utama antara tipe data primitif dan referensi di Java:
+
+- **Tipe data primitif** (seperti int, char, float, dll.) menyimpan nilai secara langsung.
+- <b>Tipe data referensi</b> (seperti String, Array, atau kelas lainnya) menyimpan alamat memori objek, bukan nilai langsung.
+
+### Kembali ke Kasus Literal String dan String Pool
+Kembali ke kode sebelumnya, hasil a == b adalah true. Ini terjadi karena Java memiliki mekanisme khusus yang disebut **String Pool**.
+
+Ketika Anda membuat literal String seperti `"hello"`, Java akan menyimpan string tersebut di dalam **String Pool**—sebuah area memori khusus untuk mengelola string literal. Jika dua variabel String mengacu pada literal yang sama (seperti dalam contoh a dan b), keduanya akan menunjuk ke lokasi yang sama di **String Pool**. Karena itulah `a == b` mengembalikan `true`.
+
+> Penjelasan lebih detail tentang String Pool akan dibahas pada artikel selanjutnya! 
+
+## Kesimpulan
+1. Operator perbandingan `==` hanya membandingkan alamat memori dari objek, bukan nilai objek itu sendiri.
+2. Method `equals()` membandingkan `value` dari objek itu sendiri, bukan alamat memori.
+
+
+### Referensi
+- [Java Reference String](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html)
+- [Java Reference equals](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html#equals(java.lang.Object))
+- [Java Reference Data Types](https://www.javatpoint.com/reference-data-types-in-java)
+- [Java Primitive Data Types](https://www.javatpoint.com/primitive-data-types-in-java)
