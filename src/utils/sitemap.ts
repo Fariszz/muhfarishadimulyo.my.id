@@ -10,7 +10,7 @@ interface SitemapUrl {
 }
 
 export async function generateSitemap(): Promise<string> {
-  const baseUrl = personalInfo.website || 'https://muhammadfaris.dev';
+  const baseUrl = personalInfo.website || "https://www.muhfarishadimulyo.my.id";
   const currentDate = new Date().toISOString().split('T')[0];
   
   const urls: SitemapUrl[] = [
@@ -83,7 +83,7 @@ ${urls.map(url => `  <url>
 }
 
 export async function generateRobotsTxt(): Promise<string> {
-  const baseUrl = personalInfo.website || 'https://muhammadfaris.dev';
+  const baseUrl = personalInfo.website || "https://www.muhfarishadimulyo.my.id";
   
   return `User-agent: *
 Allow: /
