@@ -95,7 +95,7 @@ export function HomePage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 animate-stagger">
-                {featuredProjects.map((project, index) => (
+                {featuredProjects.map((project) => (
                   <Link key={project.id} to={`/projects/${project.id}`}>
                     <Card className="group cursor-pointer hover:shadow-lg transition-all duration-800 card-hover h-full">
                       <CardContent className="p-6">
@@ -162,7 +162,7 @@ export function HomePage() {
               {/* Fallback if no featured projects */}
               {featuredProjects.length === 0 && (
                 <div className="grid md:grid-cols-2 gap-6 animate-stagger">
-                  {projects.slice(0, 2).map((project, index) => (
+                  {projects.slice(0, 2).map((project) => (
                     <Link key={project.id} to={`/projects/${project.id}`}>
                       <Card className="group cursor-pointer hover:shadow-lg transition-all duration-800 card-hover h-full">
                         <CardContent className="p-6">
