@@ -17,9 +17,10 @@ export const experience: Experience[] = [
   },
   {
     id: "2",
-    company: "Private Company",
+    company: "Chup Online Sdn.Bhd",
     role: "Backend Developer",
     startDate: "2024-03",
+      endDate: "2025-05",
     location: "",
     description: "Worked on system integration and backend improvements to support product scalability.",
     achievements: [
