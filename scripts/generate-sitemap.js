@@ -6,10 +6,10 @@ const baseUrl = 'https://www.muhfarishadimulyo.my.id';
 const currentDate = new Date().toISOString().split('T')[0];
 
 const staticPages = [
-  { url: '/', priority: '1.0', changefreq: 'weekly' },
+  { url: '/', priority: '1.0', changefreq: 'always' },
   { url: '/blog', priority: '0.9', changefreq: 'weekly' },
-  { url: '/projects', priority: '0.9', changefreq: 'monthly' },
-  { url: '/experience', priority: '0.8', changefreq: 'monthly' }
+  { url: '/projects', priority: '0.9', changefreq: 'weekly' },
+  { url: '/experience', priority: '0.8', changefreq: 'weekly' }
 ];
 
 // Generate basic sitemap
@@ -28,8 +28,6 @@ const robotsTxt = `User-agent: *
 Allow: /
 
 Sitemap: ${baseUrl}/sitemap.xml
-
-Crawl-delay: 1
 
 Disallow: /admin/
 Disallow: /private/
