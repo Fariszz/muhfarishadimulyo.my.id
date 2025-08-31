@@ -2,8 +2,8 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 // Simple sitemap generation for build process
-const baseUrl = 'https://www.muhfarishadimulyo.my.id';
-const currentDate = new Date().toISOString().split('T')[0];
+const baseUrl = 'https://muhfarishadimulyo.my.id';
+const currentDate = new Date().toISOString();
 
 const staticPages = [
   { url: '/', priority: '1.0', changefreq: 'always' },
@@ -14,7 +14,7 @@ const staticPages = [
 
 // Generate basic sitemap
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 ${staticPages.map(page => `  <url>
     <loc>${baseUrl}${page.url}</loc>
     <lastmod>${currentDate}</lastmod>
@@ -26,6 +26,8 @@ ${staticPages.map(page => `  <url>
 // Generate robots.txt
 const robotsTxt = `User-agent: *
 Allow: /
+
+Host: ${baseUrl}
 
 Sitemap: ${baseUrl}/sitemap.xml
 
