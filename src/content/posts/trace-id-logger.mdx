@@ -1,0 +1,98 @@
+---
+title: "Trace ID Logger"
+excerpt: "Implementasi Trace ID Logger untuk Melacak Permintaan dalam Aplikasi"
+date: "2025-02-09"
+category: "Development"
+tags: ["Java", "Logging", "Trace ID"]
+readTime: 7
+published: false
+---
+
+# <center>Trace ID: Aha Moment of a Junior Engineer</center>
+
+Pakai Logging sebenernya bukan pertama kali di kerjaanku, akan tetapi yang aku ketahui hanya sebtas seperti penggunaan log info, log error, log warn atau sebagainya . Pada suatu hari aku ditugaskan untuk menambahkan trace id pada log ,bingung dong  waktu itu , mengapa akuy harus menambahkan trace id pada log, sedangkan jika menggunakan log seperti biasa pun bisa, jika hanya untuk mengetahui apa yang sednag berjalan didalam system.
+
+---
+
+## Latar Belakang (Konteks)
+
+Secara sederhana, **trace ID** itu adalah sebuah kode unik yang nempel di setiap request dari awal sampai akhir. Jadi, semua log yang dihasilkan selama request itu berlangsung akan punya ID yang sama. Gampangnya, trace ID itu kayak tanda pengenal—biar kita tahu log yang panjang dan berderet itu sebenernya berasal dari proses yang sama.
+
+---
+
+## Masalah / Tantangan (The Struggle)
+
+Sebelum pakai trace ID, debugging itu mayan ribet. Kek ada beberapa request masuk bersamaan. Log-nya numpuk, isinya campur aduk, dan aku nggak tahu log mana yang sebenarnya masih nyambung ke request yang sama.
+
+Hasilnya? ribet banget. Kalau ada bug, susah banget ngikutin alurnya. Urutan eksekusi nggak jelas, error muncul terus butuh waktu lama buat tahu bagian mana yang bikin sistem mandek.
+
+---
+
+## Aha Moment (The Fix)
+
+Titik baliknya datang waktu aku coba implementasi trace ID di project Java. Begitu request masuk, trace ID langsung ditempelin. Pas error muncul, aku bisa langsung tahu:
+
+* Error ini muncul di request yang mana.
+* Proses apa aja yang udah dilalui sebelum error itu terjadi.
+
+Bahkan kalau ada banyak log numpuk, aku tinggal filter berdasarkan trace ID. Tiba-tiba semua jadi lebih rapi, alurnya jelas, dan nggak perlu lagi scroll panjang-panjang sambil tebak-tebakan. Di situ aku ngerasa: *“Oke, ini dia gunanya trace ID!”*
+
+---
+
+## Penjelasan Detail Trace ID
+
+Secara teknis, trace ID bisa dibuat dengan berbagai cara. Bisa pakai **UUID**, **base64 string**, atau apapun yang penting unik untuk setiap request. ID ini ditempel di *context* request, lalu setiap log yang tercatat akan otomatis membawa ID tersebut. Dengan begitu, semua log dalam satu alur request bisa dikelompokkan dengan mudah.
+
+---
+
+## Manfaat Trace ID (The Impact)
+
+Beberapa hal yang aku rasain langsung setelah pakai trace ID:
+
+* **Debugging lebih cepat** → tinggal filter pakai trace ID.
+* **Troubleshooting lebih jelas** → bisa tahu urutan proses sebelum error muncul.
+* **Observability meningkat** → log nggak lagi berantakan, tapi terstruktur per request.
+
+---
+
+## Perbandingan (Before & After)
+
+* **Sebelum**: Log campur aduk, harus baca satu-satu, sering kebingungan mana yang nyambung.
+```bash
+[10:04:01.123] INFO  o.e.s.OrderService - Start placing order
+[10:04:01.456] INFO  o.e.s.PaymentSvc  - Charge request sent
+[10:04:01.789] ERROR o.e.s.PaymentSvc  - Payment failed: timeout
+[10:04:01.900] INFO  o.e.s.OrderService - Rollback order
+
+```
+
+* **Sesudah**: Tinggal filter trace ID → log langsung keliatan runtut kayak garis waktu.
+```bash
+[12:01:10.111] [trace=aa11bb22] INFO  o.e.s.OrderService   - Start placing order
+[12:01:10.244] [trace=aa11bb22] INFO  o.e.s.InventorySvc   - Checking stock for item=SKU-111
+[12:01:10.366] [trace=aa11bb22] INFO  o.e.s.InventorySvc   - Stock available: 10 units
+[12:01:10.500] [trace=aa11bb22] INFO  o.e.s.PaymentSvc     - Charge request sent
+[12:01:11.002] [trace=aa11bb22] INFO  o.e.s.PaymentSvc     - Payment success, transactionId=TXN-1001
+[12:01:11.115] [trace=aa11bb22] INFO  o.e.s.OrderService   - Order confirmed, orderId=ORD-2001
+
+[12:02:45.050] [trace=cc33dd44] INFO  o.e.s.OrderService   - Start placing order
+[12:02:45.182] [trace=cc33dd44] INFO  o.e.s.InventorySvc   - Checking stock for item=SKU-222
+[12:02:45.305] [trace=cc33dd44] WARN  o.e.s.InventorySvc   - Stock low: only 1 unit left
+[12:02:45.456] [trace=cc33dd44] INFO  o.e.s.PaymentSvc     - Charge request sent
+[12:02:45.890] [trace=cc33dd44] ERROR o.e.s.PaymentSvc     - Payment failed: insufficient funds
+[12:02:46.001] [trace=cc33dd44] INFO  o.e.s.OrderService   - Rollback order
+```
+
+---
+
+## Kesimpulan dan Refleksi (Lessons Learned)
+
+Dari pengalaman ini, ada beberapa hal yang aku pelajari:
+
+1. **Jangan remehkan hal kecil** → awalnya trace ID terlihat sepele, tapi ternyata dampaknya besar banget buat efisiensi kerja.
+2. **Debugging bukan cuma soal log error** → tapi juga soal memahami alur lengkap request, dan trace ID bantu banget di sini.
+3. **Observability = produktivitas** → semakin jelas kita bisa lihat sistem, semakin cepat juga kita menyelesaikan masalah.
+
+Kalau aku bisa kasih tips ke sesama junior engineer : jangan tunggu sistem jadi kompleks dulu baru pakai trace ID. Implementasi sejak awal bisa bikin hidup jauh lebih mudah.
+
+---
