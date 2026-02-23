@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 // Simple sitemap generation for build process
-const baseUrl = 'https://muhfarishadimulyo.my.id';
+const baseUrl = 'https://farishm.com';
 const currentDate = new Date().toISOString();
 
 const staticPages = [
