@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
+import type { ComponentPropsWithoutRef } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navigation } from '@/components/layout/navigation';
 import { Footer } from '@/components/layout/footer';
@@ -12,39 +13,47 @@ import { ProjectsPage } from '@/pages/projects';
 import { ProjectDetailPage } from '@/pages/project-detail';
 import { ExperiencePage } from '@/pages/experience';
 
+type IntrinsicProps<T extends keyof JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
+
 // MDX components for styling
 const mdxComponents = {
-  h1: (props: any) => <h1 className="text-3xl font-bold mb-4" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-semibold mb-3 mt-8" {...props} />,
-  h3: (props: any) => <h3 className="text-xl font-semibold mb-2 mt-6" {...props} />,
-  p: (props: any) => <p className="mb-4 leading-relaxed" {...props} />,
-  ul: (props: any) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
-  ol: (props: any) => <ol className="list-decimal list-inside mb-4 space-y-1" {...props} />,
-  li: (props: any) => <li className="mb-1" {...props} />,
-  blockquote: (props: any) => (
+  h1: (props: IntrinsicProps<'h1'>) => <h1 className="text-3xl font-bold mb-4" {...props} />,
+  h2: (props: IntrinsicProps<'h2'>) => <h2 className="text-2xl font-semibold mb-3 mt-8" {...props} />,
+  h3: (props: IntrinsicProps<'h3'>) => <h3 className="text-xl font-semibold mb-2 mt-6" {...props} />,
+  p: (props: IntrinsicProps<'p'>) => <p className="mb-4 leading-relaxed" {...props} />,
+  ul: (props: IntrinsicProps<'ul'>) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
+  ol: (props: IntrinsicProps<'ol'>) => <ol className="list-decimal list-inside mb-4 space-y-1" {...props} />,
+  li: (props: IntrinsicProps<'li'>) => <li className="mb-1" {...props} />,
+  blockquote: (props: IntrinsicProps<'blockquote'>) => (
     <blockquote className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground" {...props} />
   ),
-  code: (props: any) => (
+  code: (props: IntrinsicProps<'code'>) => (
     <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono" {...props} />
   ),
-  pre: (props: any) => (
+  pre: (props: IntrinsicProps<'pre'>) => (
     <pre className="bg-muted p-4 rounded-lg overflow-x-auto my-4" {...props} />
   ),
-  img: (props: any) => (
-    <img className="rounded-lg shadow-md my-6 w-full image-smooth-load" {...props} />
+  img: (props: IntrinsicProps<'img'>) => (
+    <img
+      className="rounded-lg shadow-md my-6 w-full image-smooth-load"
+      loading="lazy"
+      decoding="async"
+      alt=""
+      {...props}
+    />
   ),
-  a: (props: any) => (
+  a: (props: IntrinsicProps<'a'>) => (
     <a className="text-primary hover:underline transition-colors duration-300" {...props} />
   ),
-  table: (props: any) => (
+  table: (props: IntrinsicProps<'table'>) => (
     <div className="overflow-x-auto my-6">
       <table className="min-w-full border-collapse border border-border" {...props} />
     </div>
   ),
-  th: (props: any) => (
+  th: (props: IntrinsicProps<'th'>) => (
     <th className="border border-border px-4 py-2 bg-muted font-semibold text-left" {...props} />
   ),
-  td: (props: any) => (
+  td: (props: IntrinsicProps<'td'>) => (
     <td className="border border-border px-4 py-2" {...props} />
   ),
 };

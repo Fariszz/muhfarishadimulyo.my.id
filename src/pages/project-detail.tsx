@@ -101,6 +101,8 @@ export function ProjectDetailPage() {
                     src={project.imageUrl}
                     alt={project.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out image-smooth-load"
+                    loading="eager"
+                    decoding="async"
                   />
                 </div>
               )}

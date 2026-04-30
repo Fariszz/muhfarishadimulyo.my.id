@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react';
+
 export interface BlogPostMeta {
   title: string;
   excerpt: string;
@@ -12,7 +14,12 @@ export interface BlogPostMeta {
 export interface BlogPost extends BlogPostMeta {
   id: string;
   content: string;
-  Component?: React.ComponentType;
+  Component?: ComponentType;
+}
+
+interface MdxModule {
+  default: ComponentType;
+  frontmatter?: Partial<BlogPostMeta>;
 }
 
 // Import all MDX files as modules
@@ -24,7 +31,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts: BlogPost[] = [];
 
   for (const [path, module] of Object.entries(mdxFiles)) {
-    const mdxModule = module as any;
+    const mdxModule = module as MdxModule;
     const frontmatter = mdxModule.frontmatter || {};
     const id = path.split('/').pop()?.replace('.mdx', '') || '';
     
@@ -32,10 +39,10 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
       id,
       content: '', // Will be rendered by MDX component
       Component: mdxModule.default, // MDX component for rendering
-      title: frontmatter.title,
-      excerpt: frontmatter.excerpt,
-      date: frontmatter.date,
-      category: frontmatter.category,
+      title: frontmatter.title || id,
+      excerpt: frontmatter.excerpt || '',
+      date: frontmatter.date || new Date().toISOString().split('T')[0],
+      category: frontmatter.category || 'Blog',
       tags: frontmatter.tags || [],
       readTime: frontmatter.readTime || 5,
       published: frontmatter.published !== false,

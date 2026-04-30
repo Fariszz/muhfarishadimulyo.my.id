@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://www.farishm.com/sitemap.xml
-
-# Block access to admin or private areas (if any)
-Disallow: /admin/
-Disallow: /private/
-Disallow: /.env
-Disallow: /api/private/
+Sitemap: https://muhfarishadimulyo.my.id/sitemap-index.xml

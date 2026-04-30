@@ -31,9 +31,15 @@ export function SEOHead({
   const siteTitle = personalInfo.name;
   const fullTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - ${personalInfo.title}`;
   const siteDescription = description || personalInfo.bio;
-  const siteUrl = personalInfo.website || 'https://muhfarishalyo.my.id';
-  const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
-  const imageUrl = image || `${siteUrl}/og-image.jpg`;
+  const siteUrl = (personalInfo.website || 'https://farishm.com').replace(/\/$/, '');
+  const canonicalPath = url ? (url.startsWith('/') ? url : `/${url}`) : '/';
+  const fullUrl = `${siteUrl}${canonicalPath === '/' ? '/' : canonicalPath}`;
+  const imageUrl = image
+    ? (image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`)
+    : `${siteUrl}/og-image.jpg`;
+  const twitterHandle = personalInfo.twitter
+    ? `@${personalInfo.twitter.replace(/\/$/, '').split('/').pop()}`
+    : undefined;
   
   const allKeywords = [
     'full stack developer',
@@ -97,6 +103,7 @@ export function SEOHead({
       <meta name="keywords" content={allKeywords.join(', ')} />
       <meta name="author" content={author} />
       <link rel="canonical" href={fullUrl} />
+      <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
@@ -105,6 +112,8 @@ export function SEOHead({
       <meta property="og:url" content={fullUrl} />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:alt" content={title || personalInfo.name} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteTitle} />
       <meta property="og:locale" content="en_US" />
 
@@ -114,8 +123,8 @@ export function SEOHead({
       <meta name="twitter:description" content={siteDescription} />
       <meta name="twitter:image" content={imageUrl} />
       <meta name="twitter:image:alt" content={title || personalInfo.name} />
-      {personalInfo.twitter && (
-        <meta name="twitter:site" content={personalInfo.twitter.replace('https://twitter.com/', '@')} />
+      {twitterHandle && (
+        <meta name="twitter:site" content={twitterHandle} />
       )}
 
       {/* Article specific meta tags */}
@@ -136,7 +145,7 @@ export function SEOHead({
       <meta name="googlebot" content="index, follow" />
       <meta name="bingbot" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta httpEquiv="Content-Language" content="en" />
+      <meta httpEquiv="Content-Language" content="en-ID" />
       <meta name="theme-color" content="#000000" />
 
       {/* Structured Data */}
