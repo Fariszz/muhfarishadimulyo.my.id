@@ -15,9 +15,10 @@ const navItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const mobileMenuId = 'mobile-navigation-menu';
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-500 ease-out">
+    <nav aria-label="Primary" className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-500 ease-out">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link 
@@ -65,6 +66,8 @@ export function Navigation() {
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls={mobileMenuId}
               className="transition-all duration-300 hover:scale-105"
             >
               <div className="relative">
@@ -87,6 +90,7 @@ export function Navigation() {
 
         {/* Mobile Navigation Menu */}
         <div 
+          id={mobileMenuId}
           className={cn(
             "md:hidden overflow-hidden transition-all duration-500 ease-out",
             isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"

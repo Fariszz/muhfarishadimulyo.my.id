@@ -123,23 +123,23 @@ body {
 
 /* Softer animation classes with ultra-smooth easing */
 .animate-fade-in {
-  animation: fadeInGentle 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeInGentle 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-slide-in-top {
-  animation: slideInFromTopGentle 1s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInFromTopGentle 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-slide-in-left {
-  animation: slideInFromLeftGentle 1s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInFromLeftGentle 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-slide-in-right {
-  animation: slideInFromRightGentle 1s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInFromRightGentle 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-scale-in {
-  animation: scaleInGentle 1s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scaleInGentle 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-gentle-bounce {
@@ -149,15 +149,15 @@ body {
 /* Ultra-smooth staggered animations with longer, gentler delays */
 .animate-stagger > * {
   opacity: 0;
-  animation: fadeInGentle 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInGentle 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-stagger > *:nth-child(1) { animation-delay: 0.2s; }
-.animate-stagger > *:nth-child(2) { animation-delay: 0.5s; }
-.animate-stagger > *:nth-child(3) { animation-delay: 0.8s; }
-.animate-stagger > *:nth-child(4) { animation-delay: 1.1s; }
-.animate-stagger > *:nth-child(5) { animation-delay: 1.4s; }
-.animate-stagger > *:nth-child(6) { animation-delay: 1.7s; }
+.animate-stagger > *:nth-child(1) { animation-delay: 0.06s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.12s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.18s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.24s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(6) { animation-delay: 0.36s; }
 
 /* Loading animation */
 @keyframes pulse {
@@ -334,7 +334,7 @@ a {
 }
 
 .animate-content-reveal {
-  animation: contentReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: contentReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Smooth image loading */

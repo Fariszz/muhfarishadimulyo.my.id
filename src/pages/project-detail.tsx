@@ -21,6 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { SEOHead } from '@/components/seo/seo-head';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
+import { personalInfo } from '@/content/personal-info';
 import { projects } from '@/content/projects';
 import { Project } from '@/types';
 
@@ -75,6 +76,22 @@ export function ProjectDetailPage() {
         keywords={[...project.techStack, project.category.toLowerCase(), 'project', 'portfolio']}
         image={project.imageUrl}
         url={`/projects/${project.id}`}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'CreativeWork',
+          name: project.title,
+          description: project.description,
+          image: project.imageUrl ? `${personalInfo.website}${project.imageUrl}` : undefined,
+          creator: {
+            '@type': 'Person',
+            name: personalInfo.name,
+            url: personalInfo.website,
+          },
+          keywords: project.techStack.join(', '),
+          genre: project.category,
+          url: `${personalInfo.website}/projects/${project.id}`,
+          ...(project.liveUrl ? { sameAs: [project.liveUrl] } : {}),
+        }}
       />
       
       <div className="container mx-auto px-4 py-8">

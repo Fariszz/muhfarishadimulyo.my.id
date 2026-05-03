@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Muhammad Faris H M</title>
+  <desc id="desc">Open Graph card for Muhammad Faris H M, Software Engineer.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="55%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="954" cy="120" r="180" fill="#60a5fa" fill-opacity="0.16" />
+  <circle cx="1100" cy="520" r="220" fill="#93c5fd" fill-opacity="0.12" />
+  <text x="84" y="250" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="68" font-weight="700">
+    Muhammad Faris H M
+  </text>
+  <text x="84" y="330" fill="#bfdbfe" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="600">
+    Software Engineer
+  </text>
+  <text x="84" y="408" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="28">
+    Backend-focused engineer building reliable, scalable systems.
+  </text>
+  <rect x="84" y="474" width="240" height="62" rx="31" fill="#eff6ff" fill-opacity="0.12" stroke="#93c5fd" stroke-opacity="0.5" />
+  <text x="124" y="514" fill="#dbeafe" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="600">
+    muhfarishadimulyo.my.id
+  </text>
+</svg>

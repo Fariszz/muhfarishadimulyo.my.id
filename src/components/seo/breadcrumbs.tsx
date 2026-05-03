@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ChevronRight, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { personalInfo } from '@/content/personal-info';
 
 interface BreadcrumbItem {
   label: string;
@@ -22,41 +24,60 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
     return null;
   }
 
+  const siteUrl = (personalInfo.website || 'https://muhfarishadimulyo.my.id').replace(/\/$/, '');
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      ...(item.href ? { item: `${siteUrl}${item.href === '/' ? '/' : item.href}` } : {}),
+    })),
+  };
+
   return (
-    <nav 
-      aria-label="Breadcrumb" 
-      className={cn("flex items-center space-x-1 text-sm text-muted-foreground", className)}
-    >
-      <ol className="flex items-center space-x-1">
-        <li>
-          <Link 
-            to="/" 
-            className="flex items-center hover:text-primary transition-colors"
-            aria-label="Home"
-          >
-            <Home className="h-4 w-4" />
-          </Link>
-        </li>
-        
-        {breadcrumbItems.slice(1).map((item, index) => (
-          <li key={index} className="flex items-center space-x-1">
-            <ChevronRight className="h-4 w-4" />
-            {item.href ? (
-              <Link 
-                to={item.href} 
-                className="hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span className="text-foreground font-medium" aria-current="page">
-                {item.label}
-              </span>
-            )}
+    <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+      <nav 
+        aria-label="Breadcrumb" 
+        className={cn("flex items-center space-x-1 text-sm text-muted-foreground", className)}
+      >
+        <ol className="flex items-center space-x-1">
+          <li>
+            <Link 
+              to="/" 
+              className="flex items-center hover:text-primary transition-colors"
+              aria-label="Home"
+            >
+              <Home className="h-4 w-4" />
+            </Link>
           </li>
-        ))}
-      </ol>
-    </nav>
+          
+          {breadcrumbItems.slice(1).map((item, index) => (
+            <li key={index} className="flex items-center space-x-1">
+              <ChevronRight className="h-4 w-4" />
+              {item.href ? (
+                <Link 
+                  to={item.href} 
+                  className="hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span className="text-foreground font-medium" aria-current="page">
+                  {item.label}
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </>
   );
 }
 

@@ -41,10 +41,16 @@ export function ProjectsPage() {
   return (
     <>
       <SEOHead
-        title="Projects"
-        description="A collection of projects showcasing different technologies and approaches to solving problems. From full-stack applications to design systems."
-        keywords={['projects', 'portfolio', 'React', 'TypeScript', 'full stack', 'web development']}
+        title="Software Engineering Projects"
+        description="Selected software engineering projects covering backend systems, web applications, architecture decisions, and production-focused implementation work."
+        keywords={['software engineering projects', 'developer portfolio projects', 'backend projects', 'TypeScript projects', 'Java projects', 'web applications']}
         url="/projects"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Software Engineering Projects',
+          description: 'Selected software engineering projects covering backend systems, web applications, architecture decisions, and production-focused implementation work.',
+        }}
       />
       
       <div className="container mx-auto px-4 py-8">

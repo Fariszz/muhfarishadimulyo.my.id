@@ -14,17 +14,17 @@ export function HomePage() {
   return (
     <>
       <SEOHead
-        title="Home"
-        description={personalInfo.bio}
-        keywords={['full stack developer', 'React', 'TypeScript', 'web development', 'UI/UX design']}
+        title="Backend Software Engineer Portfolio"
+        description="Backend-focused software engineer portfolio featuring scalable systems, selected projects, engineering experience, and technical writing."
+        keywords={['backend software engineer', 'software engineer portfolio', 'TypeScript', 'Java', 'web development', 'system design']}
         type="website"
       />
       
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-4xl mx-auto text-center space-y-8 animate-content-reveal">
-            <div className="space-y-4 animate-gentle-bounce">
+          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+            <div className="space-y-4">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 Hi, I'm{' '}
                 <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
@@ -36,11 +36,11 @@ export function HomePage() {
               </h2>
             </div>
             
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-slide-in-top" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               {personalInfo.bio}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-in-top" style={{ animationDelay: '0.8s' }}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="w-full sm:w-auto btn-animate group">
                 <Link to="/projects">
                   View My Work 
@@ -55,7 +55,7 @@ export function HomePage() {
               </a>
             </div>
 
-            <div className="flex items-center justify-center space-x-6 pt-8 animate-slide-in-top" style={{ animationDelay: '1.2s' }}>
+            <div className="flex items-center justify-center space-x-6 pt-8">
               <a
                 href={personalInfo.github}
                 target="_blank"
@@ -89,7 +89,7 @@ export function HomePage() {
         <section className="border-t bg-muted/50">
           <div className="container mx-auto px-4 py-16">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center space-y-4 mb-12 animate-content-reveal">
+              <div className="text-center space-y-4 mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Featured Work</h2>
                 <p className="text-lg text-muted-foreground">
                   A selection of projects that showcase my skills and experience
@@ -224,7 +224,7 @@ export function HomePage() {
                 </div>
               )}
 
-              <div className="text-center mt-8 animate-content-reveal" style={{ animationDelay: '1.6s' }}>
+              <div className="text-center mt-8">
                 <Button asChild variant="outline" className="btn-animate group">
                   <Link to="/projects">
                     View All Projects 
@@ -236,10 +236,77 @@ export function HomePage() {
           </div>
         </section>
 
+        {/* Explore Section */}
+        <section className="border-t">
+          <div className="container mx-auto px-4 py-16">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center space-y-4 mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold">Explore the Site</h2>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                  Browse the most important sections of the site: portfolio projects, engineering articles, and professional experience.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="h-full card-hover">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold">Browse software engineering projects</h3>
+                      <p className="text-muted-foreground">
+                        Review selected backend and web application projects, implementation details, and technology stacks.
+                      </p>
+                    </div>
+                    <Button asChild variant="outline" className="group">
+                      <Link to="/projects">
+                        Go to Projects
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="h-full card-hover">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold">Read the software engineering blog</h3>
+                      <p className="text-muted-foreground">
+                        Explore technical writing about backend engineering, Java, TypeScript, architecture, and lessons from production work.
+                      </p>
+                    </div>
+                    <Button asChild variant="outline" className="group">
+                      <Link to="/blog">
+                        Go to Blog
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="h-full card-hover">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold">View professional engineering experience</h3>
+                      <p className="text-muted-foreground">
+                        See career history, delivery highlights, and the technologies used across product and engineering roles.
+                      </p>
+                    </div>
+                    <Button asChild variant="outline" className="group">
+                      <Link to="/experience">
+                        Go to Experience
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section className="border-t">
           <div className="container mx-auto px-4 py-16">
-            <div className="max-w-2xl mx-auto text-center space-y-6 animate-content-reveal">
+            <div className="max-w-2xl mx-auto text-center space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">Let's Work Together</h2>
               <p className="text-lg text-muted-foreground">
                 I'm always interested in new opportunities and exciting projects. 

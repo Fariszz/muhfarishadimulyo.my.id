@@ -33,10 +33,16 @@ export function ExperiencePage() {
   return (
     <>
       <SEOHead
-        title="Experience"
-        description="My professional journey and the companies I've had the privilege to work with. Showcasing career progression and key achievements."
-        keywords={['experience', 'career', 'professional', 'full stack developer', 'work history']}
+        title="Engineering Experience"
+        description="Professional software engineering experience, career progression, delivery highlights, and the technologies used across production teams and products."
+        keywords={['software engineer experience', 'engineering career', 'backend developer experience', 'work history', 'technical leadership', 'production systems']}
         url="/experience"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Engineering Experience',
+          description: 'Professional software engineering experience, career progression, delivery highlights, and the technologies used across production teams and products.',
+        }}
       />
       
       <div className="container mx-auto px-4 py-8">

@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { personalInfo } from '@/content/personal-info';
 
+type JsonLd = Record<string, unknown>;
+
 interface SEOHeadProps {
   title?: string;
   description?: string;
@@ -13,6 +15,8 @@ interface SEOHeadProps {
   author?: string;
   section?: string;
   tags?: string[];
+  preconnectOrigins?: string[];
+  schema?: JsonLd | JsonLd[];
 }
 
 export function SEOHead({
@@ -26,7 +30,9 @@ export function SEOHead({
   modifiedTime,
   author = personalInfo.name,
   section,
-  tags = []
+  tags = [],
+  preconnectOrigins = [],
+  schema
 }: SEOHeadProps) {
   const siteTitle = personalInfo.name;
   const fullTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - ${personalInfo.title}`;
@@ -36,10 +42,18 @@ export function SEOHead({
   const fullUrl = `${siteUrl}${canonicalPath === '/' ? '/' : canonicalPath}`;
   const imageUrl = image
     ? (image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`)
-    : `${siteUrl}/og-image.jpg`;
+    : `${siteUrl}/og-image.svg`;
   const twitterHandle = personalInfo.twitter
     ? `@${personalInfo.twitter.replace(/\/$/, '').split('/').pop()}`
     : undefined;
+  const resolvedPreconnectOrigins = Array.from(
+    new Set(
+      [
+        ...preconnectOrigins,
+        image && image.startsWith('http') ? new URL(image).origin : null,
+      ].filter((origin): origin is string => Boolean(origin) && origin !== siteUrl)
+    )
+  );
   
   const allKeywords = [
     'full stack developer',
@@ -54,46 +68,103 @@ export function SEOHead({
     ...keywords
   ];
 
-  const structuredData = {
+  const personSchema: JsonLd = {
     '@context': 'https://schema.org',
-    '@type': type === 'article' ? 'Article' : 'Person',
-    ...(type === 'article' ? {
-      headline: title,
-      description: siteDescription,
-      image: imageUrl,
-      author: {
-        '@type': 'Person',
-        name: author,
-        url: siteUrl
-      },
-      publisher: {
-        '@type': 'Person',
-        name: personalInfo.name,
-        url: siteUrl
-      },
-      datePublished: publishedTime,
-      dateModified: modifiedTime || publishedTime,
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': fullUrl
-      },
-      keywords: tags.join(', '),
-      articleSection: section
-    } : {
-      name: personalInfo.name,
-      jobTitle: personalInfo.title,
-      description: personalInfo.bio,
-      url: siteUrl,
-      image: imageUrl,
-      sameAs: [
-        personalInfo.github,
-        personalInfo.linkedin,
-        ...(personalInfo.twitter ? [personalInfo.twitter] : [])
-      ],
-      knowsAbout: allKeywords,
-      email: personalInfo.email
-    })
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: personalInfo.name,
+    jobTitle: personalInfo.title,
+    description: personalInfo.bio,
+    url: siteUrl,
+    image: imageUrl,
+    sameAs: [
+      personalInfo.github,
+      personalInfo.linkedin,
+      ...(personalInfo.twitter ? [personalInfo.twitter] : [])
+    ],
+    knowsAbout: allKeywords,
+    email: personalInfo.email,
   };
+
+  const websiteSchema: JsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: siteTitle,
+    description: personalInfo.bio,
+    inLanguage: 'en',
+    publisher: {
+      '@id': `${siteUrl}/#person`,
+    },
+    hasPart: [
+      {
+        '@type': 'WebPage',
+        name: 'Projects',
+        url: `${siteUrl}/projects`,
+      },
+      {
+        '@type': 'WebPage',
+        name: 'Blog',
+        url: `${siteUrl}/blog`,
+      },
+      {
+        '@type': 'WebPage',
+        name: 'Experience',
+        url: `${siteUrl}/experience`,
+      },
+    ],
+  };
+
+  const pageSchema: JsonLd = type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        '@id': `${fullUrl}#article`,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': fullUrl
+        },
+        headline: title,
+        description: siteDescription,
+        image: imageUrl,
+        author: {
+          '@id': `${siteUrl}/#person`
+        },
+        publisher: {
+          '@id': `${siteUrl}/#person`
+        },
+        datePublished: publishedTime,
+        dateModified: modifiedTime || publishedTime,
+        keywords: tags.join(', '),
+        articleSection: section
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': canonicalPath === '/' ? 'ProfilePage' : 'WebPage',
+        '@id': fullUrl,
+        url: fullUrl,
+        name: fullTitle,
+        description: siteDescription,
+        inLanguage: 'en',
+        isPartOf: {
+          '@id': `${siteUrl}/#website`
+        },
+        about: {
+          '@id': `${siteUrl}/#person`
+        },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: imageUrl
+        }
+      };
+
+  const structuredData = [
+    personSchema,
+    websiteSchema,
+    pageSchema,
+    ...(schema ? (Array.isArray(schema) ? schema : [schema]) : [])
+  ];
 
   return (
     <Helmet>
@@ -145,7 +216,7 @@ export function SEOHead({
       <meta name="googlebot" content="index, follow" />
       <meta name="bingbot" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta httpEquiv="Content-Language" content="en-ID" />
+      <meta httpEquiv="Content-Language" content="en" />
       <meta name="theme-color" content="#000000" />
 
       {/* Structured Data */}
@@ -153,16 +224,13 @@ export function SEOHead({
         {JSON.stringify(structuredData)}
       </script>
 
-      {/* Preconnect to external domains */}
-      <link rel="preconnect" href="https://images.pexels.com" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      {/* Preconnect to external origins used on the current page */}
+      {resolvedPreconnectOrigins.map((origin) => (
+        <link key={origin} rel="preconnect" href={origin} crossOrigin="anonymous" />
+      ))}
 
       {/* Favicon and App Icons */}
-      <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="manifest" href="/site.webmanifest" />
     </Helmet>
   );

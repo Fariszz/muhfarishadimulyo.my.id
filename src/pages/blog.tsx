@@ -52,10 +52,16 @@ export function BlogPage() {
     return (
       <>
         <SEOHead
-          title="Blog"
-          description="Thoughts on web development, design, and technology. Sharing insights from my journey as a developer."
-          keywords={['blog', 'web development', 'React', 'TypeScript', 'programming', 'tutorials']}
+          title="Software Engineering Blog"
+          description="Technical articles on backend engineering, Java, TypeScript, architecture, and practical lessons from shipping production software."
+          keywords={['software engineering blog', 'backend engineering', 'Java', 'TypeScript', 'programming articles', 'developer blog']}
           url="/blog"
+          schema={{
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Software Engineering Blog',
+            description: 'Technical articles on backend engineering, Java, TypeScript, architecture, and practical lessons from shipping production software.',
+          }}
         />
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
@@ -74,10 +80,16 @@ export function BlogPage() {
   return (
     <>
       <SEOHead
-        title="Blog"
-        description="Thoughts on web development, design, and technology. Sharing insights from my journey as a developer."
-        keywords={['blog', 'web development', 'React', 'TypeScript', 'programming', 'tutorials']}
+        title="Software Engineering Blog"
+        description="Technical articles on backend engineering, Java, TypeScript, architecture, and practical lessons from shipping production software."
+        keywords={['software engineering blog', 'backend engineering', 'Java', 'TypeScript', 'programming articles', 'developer blog']}
         url="/blog"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Software Engineering Blog',
+          description: 'Technical articles on backend engineering, Java, TypeScript, architecture, and practical lessons from shipping production software.',
+        }}
       />
       
       <div className="container mx-auto px-4 py-8">
