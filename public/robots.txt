@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muhfarishadimulyo.my.id/sitemap-index.xml
+Sitemap: https://farishm.com/sitemap-index.xml

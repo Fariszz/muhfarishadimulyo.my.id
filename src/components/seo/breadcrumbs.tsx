@@ -24,7 +24,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
     return null;
   }
 
-  const siteUrl = (personalInfo.website || 'https://muhfarishadimulyo.my.id').replace(/\/$/, '');
+  const siteUrl = (personalInfo.website || 'https://farishm.com').replace(/\/$/, '');
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',

@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-const baseUrl = (process.env.PUBLIC_SITE_URL || process.env.SITE_URL || 'https://muhfarishadimulyo.my.id').replace(/\/$/, '');
+const baseUrl = (process.env.PUBLIC_SITE_URL || process.env.SITE_URL || 'https://farishm.com').replace(/\/$/, '');
 const currentDate = new Date().toISOString().split('T')[0];
 
 const staticPages = [
