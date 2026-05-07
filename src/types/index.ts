@@ -55,5 +55,6 @@ export interface PersonalInfo {
   github: string;
   linkedin: string;
   twitter?: string;
+  medium?: string;
   website?: string;
 }

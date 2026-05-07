@@ -1,4 +1,4 @@
-import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, BookOpenText, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -74,6 +74,17 @@ export function HomePage() {
               >
                 <Linkedin className="h-6 w-6" />
               </a>
+              {personalInfo.medium && (
+                <a
+                  href={personalInfo.medium}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-all duration-500 hover:scale-110 icon-transition"
+                  aria-label="Medium"
+                >
+                  <BookOpenText className="h-6 w-6" />
+                </a>
+              )}
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="text-muted-foreground hover:text-primary transition-all duration-500 hover:scale-110 icon-transition"

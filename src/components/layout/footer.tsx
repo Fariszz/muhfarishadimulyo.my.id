@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { BookOpenText, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo } from '@/content/personal-info';
 
@@ -52,6 +52,17 @@ export function Footer() {
                 aria-label="Twitter"
               >
                 <Twitter className="h-5 w-5" />
+              </a>
+            )}
+            {personalInfo.medium && (
+              <a
+                href={personalInfo.medium}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Medium"
+              >
+                <BookOpenText className="h-5 w-5" />
               </a>
             )}
             <a

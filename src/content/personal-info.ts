@@ -8,5 +8,6 @@ export const personalInfo: PersonalInfo = {
   github: "https://github.com/Fariszz",
   linkedin: "https://www.linkedin.com/in/muhfarishalyo/",
   twitter: "https://x.com/fa_zzz19",
+  medium: "https://medium.com/@ziraflyo",
   website: import.meta.env.VITE_SITE_URL || "https://farishm.com"
 };

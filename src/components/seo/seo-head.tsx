@@ -80,7 +80,8 @@ export function SEOHead({
     sameAs: [
       personalInfo.github,
       personalInfo.linkedin,
-      ...(personalInfo.twitter ? [personalInfo.twitter] : [])
+      ...(personalInfo.twitter ? [personalInfo.twitter] : []),
+      ...(personalInfo.medium ? [personalInfo.medium] : [])
     ],
     knowsAbout: allKeywords,
     email: personalInfo.email,
